@@ -77,7 +77,7 @@ function setup() {
   orangeGroup=new Group();
 
   //Initial value of survival Time
-  stamina=10;
+  stamina=20;
   //Initial value of score
   score=0;
 
@@ -333,7 +333,7 @@ function reset()
   //Initial 
   gameState=PLAY;
   score=0;
-  stamina=10;
+  stamina=20;
   gameOver.visible=false;
   restart.visible=false;
 }
