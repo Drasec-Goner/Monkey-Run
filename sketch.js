@@ -151,7 +151,7 @@ function draw()
     background("white");
     console.log(window.width)
     //To make the monkey jump to surmount obstacles
-    if(keyDown("space")&&monkey.y>400)
+    if(keyDown("space")&&monkey.y>height-50)
     { 
       //To assign upward velocity to monkey
       monkey.velocityY=-13.5;
@@ -159,7 +159,7 @@ function draw()
     }
     
     //To make monkey long jump to collect oranges
-    else if(keyDown("UP_ARROW")&&monkey.y>400)
+    else if(keyDown("UP_ARROW")&&monkey.y>height-50)
     {
       //To make monkey move up
       monkey.velocityY=-16.5;
