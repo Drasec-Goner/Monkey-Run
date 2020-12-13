@@ -146,7 +146,9 @@ function draw()
     monkey.visible=true;
     //To increase the ground speed with increasement in score
     ground.velocityX=-(4+score/10);
-      background("white");
+    //To add gravity 
+    monkey.velocityY=monkey.velocityY+0.5;
+    background("white");
     console.log(window.width)
     //To make the monkey jump to surmount obstacles
     if(keyDown("space")&&monkey.y>400)
@@ -167,8 +169,7 @@ function draw()
       longjump_sound.play();
     } 
     
-    //To add gravity 
-    monkey.velocityY=monkey.velocityY+0.5;
+
     
     //To increase the score when monkey touches banana
     if(monkey.isTouching(foodGroup))
