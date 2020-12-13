@@ -1,4 +1,3 @@
-//Declaration of Global Variables
 var monkey,monkey_run,monkey_stop;
 var banana ,banana_img;
 var obstacle,obstacle_img;
@@ -40,7 +39,7 @@ function preload()
   gameOver_img=loadImage("gameover.png");
   restart_img=loadImage("restart.png");
 
-  
+
   //To load sounds  
   longjump_sound=loadSound("longjump.mp3");
   jumpSound=loadSound("jump.mp3");
@@ -54,7 +53,7 @@ function preload()
 
 function setup() {
   //To create a canvas
-  createCanvas(600,400);
+  createCanvas(windowWidth,windowHeight);
   //I learnt this from a example
   //To create monkey sprite
   monkey=createSprite(60,height-75,10,10);  
@@ -65,20 +64,20 @@ function setup() {
   //monkey.debug=true;
   //To make monkey look like it is on the ground not outside it
   monkey.setCollider("rectangle",0,0,500,490);
-  
+
   //To create ground sprite
   ground=createSprite(width/2,height-47,400,8);
   ground.addImage(ground_img);
   ground.depth=-4;
   ground.scale=1.5;
-  
+
   //To declare new Groups
   foodGroup=new Group();
   obsGroup=new Group();
   orangeGroup=new Group();
-  
+
   //Initial value of survival Time
-  stamina=20;
+  stamina=10;
   //Initial value of score
   score=0;
 
@@ -86,7 +85,7 @@ function setup() {
   gameOver=createSprite(width/2,height-250,10,10)
   gameOver.addImage(gameOver_img);
   gameOver.scale=1.5;
-  
+
   //To create restart 
   restart=createSprite(width-295,height-150,10,10);
   restart.addImage(restart_img);
@@ -98,7 +97,7 @@ function draw()
 {
   //To assign the background
   background("white");
-  
+
   if(gameState===START)
   {
    //To make restart & game Over invisible
@@ -126,7 +125,7 @@ function draw()
    fill("black");
    textSize(30);
    text("ALL THE BEST!!!",200,385);
-   
+
    //To make monkey & ground invisible during start state
    monkey.visible=false;
    ground.visible=false;
@@ -136,7 +135,7 @@ function draw()
    {
      gameState=PLAY;
    }
-   
+
   }
   else if(gameState===PLAY)
   {
@@ -146,20 +145,18 @@ function draw()
     monkey.visible=true;
     //To increase the ground speed with increasement in score
     ground.velocityX=-(4+score/10);
-    //To add gravity 
-    monkey.velocityY=monkey.velocityY+0.5;
-    background("white");
+      background("white");
     console.log(window.width)
     //To make the monkey jump to surmount obstacles
-    if(keyDown("space")&&monkey.y>410)
+    if(keyDown("space")&&monkey.y>400)
     { 
       //To assign upward velocity to monkey
       monkey.velocityY=-13.5;
       jumpSound.play();
     }
-    
+
     //To make monkey long jump to collect oranges
-    else if(keyDown("UP_ARROW")&&monkey.y>410)
+    else if(keyDown("UP_ARROW")&&monkey.y>400)
     {
       //To make monkey move up
       monkey.velocityY=-16.5;
@@ -168,9 +165,10 @@ function draw()
       //To play long jump sound
       longjump_sound.play();
     } 
-    
 
-    
+    //To add gravity 
+    monkey.velocityY=monkey.velocityY+0.5;
+
     //To increase the score when monkey touches banana
     if(monkey.isTouching(foodGroup))
     {
@@ -179,7 +177,7 @@ function draw()
       score=score+2;
       stamina=stamina+5;
     }
-    
+
     //To add bonus to score when monkey touches oranges
     if(monkey.isTouching(orangeGroup))
     {
@@ -188,14 +186,14 @@ function draw()
       score=score+5;
       stamina=stamina+10;
     } 
-    
-    
+
+
     //To decrease stamina with frame rate
     if(frameCount%100===0)
     {
       stamina=stamina-1;
     }
-    
+
     //To detect and decrease the chanes when monkey touches any obstacles
     if(monkey.isTouching(obsGroup))
     {
@@ -203,13 +201,13 @@ function draw()
       dieSound.play();
       monkey.changeAnimation(monkey_stop);
     }
-    
+
     //To play a beep sound in multiple of 20 i.e.20,40,60,80
     if(score>0&&score%20===0)
     {
       checkPointSound.play();
     }
-    
+
     //To call other functions in draw function for execution
     obstacles();
     food();
@@ -220,10 +218,9 @@ function draw()
     //To make restart & game Over invisible
     gameOver.visible=true;
     restart.visible=true;
-    
+
     //Destroying objects and setting up their velocity 0 when the game ends
     monkey.changeAnimation("collided", monkey_stop);
-    monkey.velocityY=0;
     ground.velocityX=0
     foodGroup.setVelocityEach(0);
     foodGroup.destroyEach();
@@ -232,7 +229,7 @@ function draw()
     obsGroup.setVelocityEach(0);
     obsGroup.destroyEach();
   }
-  
+
   if(ground.x<0)
   {
     //To give infinite scrolling effect to ground
@@ -241,14 +238,14 @@ function draw()
 
   //To make monkey collide with the ground
   monkey.collide(ground);
-  
+
   //End state condition
   if(stamina===0)
   {
     gameState=END;
     monkey.changeAnimation("sprie_0.png");
   }
-  
+
   //To restart the game when clicked on restart button
   if(mousePressedOver(restart))
   {
@@ -256,17 +253,17 @@ function draw()
     reset();
   }
 
-  
+
   //To draw the sprites
   drawSprites();
-  
+
   //Displaying scoring & losing system
   fill("black");
   textSize(18);
   text("Fruits Eaten: "+score,50,35);
   text("Stamina: "+stamina,400,35);
-  
-  
+
+
 }
 
 
@@ -308,7 +305,7 @@ function food()
     //Add banana to foodgroup
     foodGroup.add(banana);
   }
-  
+
 }
 
 function bonusFood()
@@ -336,8 +333,7 @@ function reset()
   //Initial 
   gameState=PLAY;
   score=0;
-  stamina=20;
+  stamina=10;
   gameOver.visible=false;
   restart.visible=false;
 }
-
