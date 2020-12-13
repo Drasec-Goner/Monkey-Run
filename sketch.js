@@ -54,7 +54,7 @@ function preload()
 
 function setup() {
   //To create a canvas
-  createCanvas(windowWidth,windowHeight);
+  createCanvas(600,400);
   //I learnt this from a example
   //To create monkey sprite
   monkey=createSprite(60,height-75,10,10);  
