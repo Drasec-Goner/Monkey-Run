@@ -243,6 +243,7 @@ function draw()
   if(stamina===0)
   {
     gameState=END;
+    dieSound.play();
     monkey.changeAnimation("sprie_0.png");
   }
 
