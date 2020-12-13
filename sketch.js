@@ -222,6 +222,7 @@ function draw()
     
     //Destroying objects and setting up their velocity 0 when the game ends
     monkey.changeAnimation("collided", monkey_stop);
+    monkey.velocityY=0;
     ground.velocityX=0
     foodGroup.setVelocityEach(0);
     foodGroup.destroyEach();
